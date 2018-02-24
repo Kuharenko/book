@@ -29,7 +29,7 @@ class Material extends ActiveRecord
     {
         return Material::find()
             ->with('categories')
-            ->limit(100)
+            ->limit(20)
             ->asArray()
             ->all();
     }

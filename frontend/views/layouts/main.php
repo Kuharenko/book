@@ -65,6 +65,10 @@ AppAsset::register($this);
                 <div class="post" v-for="post in posts">
                     <div class="title">
                         <a :href="/post/ + post.id">{{ post.name }}</a>
+                        <br>
+                        <div>
+                            <span v-for="category in post.categories"><b>{{category.name}} </b></span>
+                        </div>
                         <p>{{ post.content }}</p>
                     </div>
                 </div>

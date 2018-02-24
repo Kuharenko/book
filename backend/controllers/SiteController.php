@@ -115,12 +115,6 @@ class SiteController extends Controller
     public function actionPosts()
     {
         $materials = Material::loadMaterials();
-//        foreach ($materials as $material) {
-//            // SQL-запрос не выполняется
-//            $cat = $material->categories;
-//            $name = $cat[0]->name;
-//        }
-
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $materials;
     }
