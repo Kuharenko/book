@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -6,6 +7,9 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use backend\models\Category;
+use backend\models\Material;
+use backend\models\MaterialCategories;
 
 /**
  * Site controller
@@ -15,29 +19,38 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+
+    public $enableCsrfValidation = false;
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
+        return array_merge(parent::behaviors(), [
+
+            // For cross-domain AJAX request
+            'corsFilter' => [
+                'class' => \yii\filters\Cors::className(),
+                'cors' => [
+                    // restrict access to domains:
+                    'Origin' => static::allowedDomains(),
+                    'Access-Control-Request-Method' => ['GET', 'POST'],
+                    'Access-Control-Request-Headers' => ['*'],
+                    'Access-Control-Allow-Credentials' => false,
+                    'Access-Control-Max-Age' => 3600,                 // Cache (seconds)
+                ],
+            ],
+
+        ]);
+    }
+
+    public static function allowedDomains()
+    {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+            // '*',                        // star allows all domains
+            'http://test1.example.com',
+            'http://book.my',
         ];
     }
 
@@ -96,5 +109,19 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+
+    public function actionPosts()
+    {
+        $materials = Material::loadMaterials();
+//        foreach ($materials as $material) {
+//            // SQL-запрос не выполняется
+//            $cat = $material->categories;
+//            $name = $cat[0]->name;
+//        }
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $materials;
     }
 }

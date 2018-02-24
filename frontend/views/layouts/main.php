@@ -22,62 +22,66 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-<?php $this->beginBody() ?>
-
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
-
+<div class="page-wrap">
+    <div class="main-menu">
+        <a class="main-menu__item" href="#">
+            <i class="far fa-user"></i>
+        </a>
+        <a class="main-menu__item" href="#">
+            <i class="fas fa-certificate"></i>
+        </a>
+        <a class="main-menu__item" href="#">
+            <i class="fas fa-edit"></i>
+        </a>
+        <a class="main-menu__item" href="#">
+            <i class="fas fa-clipboard"></i>
+        </a>
+        <a class="main-menu__item" href="#">
+            <i class="fas fa-building"></i>
+        </a>
+    </div>
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        <div class="content">
+     <div id="app">
+                <p>
+                    <!-- используйте компонент router-link для создания ссылок -->
+                    <!-- входной параметр `to` определяет путь для перехода -->
+                    <!-- `<router-link>` по умолчанию преобразуется в тег `<a>` -->
+                    <router-link to="/foo">Получить посты</router-link>
+                    <br>
+                    <router-link to="/bar">Удалить посты</router-link>
+                </p>
+                <!-- отображение компонента, для которого совпал путь -->
+                <router-view></router-view>
+            </div>
+            <div id="app2">
+                <h2>{{message}}</h2>
+
+                <div class="post" v-for="post in posts">
+                    <div class="title">
+                        <a :href="/post/ + post.id">{{ post.name }}</a>
+                        <p>{{ post.content }}</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
     </div>
 </div>
+<?php $this->beginBody() ?>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+<!--        --><?//= $content ?>
 
 <?php $this->endBody() ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>
