@@ -13,11 +13,20 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'fa/css/fontawesome-all.min.css',
+        'css/codemirror.css',
         'css/site.css',
         'css/main.css'
 
     ];
+    public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     public $js = [
+        'js/codemirror.js',
+        'js/xml.js',
+        'js/javascript.js',
+        'js/css.js',
+        'js/htmlmixed.js',
+        'js/clike.js',
+        'js/php.js',
         'js/app.js'
     ];
     public $depends = [

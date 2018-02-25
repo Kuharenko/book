@@ -34,6 +34,18 @@ class Material extends ActiveRecord
             ->all();
     }
 
+    /**
+     * Загружаем статьи и категории к ним
+     * @return array|ActiveRecord[]
+     */
+    public static function loadMaterial($id)
+    {
+        return Material::find()
+            ->where(['id'=>$id])
+            ->with('categories')
+            ->asArray()->one();
+    }
+
     /* Получаем категории из связующей таблицы */
     public function getCategories()
     {

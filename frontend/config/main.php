@@ -41,6 +41,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'post/<id:\d+>' => 'site/detail',
+                'categories' => 'site/categories',
+                'progress' => 'site/progress',
+                'vocabulary' => 'site/vocabulary',
             ],
         ],
 

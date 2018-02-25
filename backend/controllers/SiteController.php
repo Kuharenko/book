@@ -118,4 +118,18 @@ class SiteController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $materials;
     }
+
+    public function actionPost($id)
+    {
+        $material = Material::loadMaterial($id);
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $material;
+    }
+
+    public function actionCategories()
+    {
+        $material = Category::loadMaterials();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $material;
+    }
 }

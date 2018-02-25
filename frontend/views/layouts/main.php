@@ -23,68 +23,41 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
 <div class="page-wrap">
     <div class="main-menu">
-        <a class="main-menu__item" href="#">
+        <a class="main-menu__item" href="/">
             <i class="far fa-user"></i>
         </a>
-        <a class="main-menu__item" href="#">
+        <a class="main-menu__item" href="/categories">
             <i class="fas fa-certificate"></i>
         </a>
-        <a class="main-menu__item" href="#">
+        <a class="main-menu__item" href="/vocabulary">
             <i class="fas fa-edit"></i>
         </a>
-        <a class="main-menu__item" href="#">
+        <a class="main-menu__item" href="/progress">
             <i class="fas fa-clipboard"></i>
         </a>
-        <a class="main-menu__item" href="#">
-            <i class="fas fa-building"></i>
-        </a>
+
     </div>
     <div class="container">
-        <div class="content">
-     <div id="app">
-                <p>
-                    <!-- используйте компонент router-link для создания ссылок -->
-                    <!-- входной параметр `to` определяет путь для перехода -->
-                    <!-- `<router-link>` по умолчанию преобразуется в тег `<a>` -->
-                    <router-link to="/foo">Получить посты</router-link>
-                    <br>
-                    <router-link to="/bar">Удалить посты</router-link>
-                </p>
-                <!-- отображение компонента, для которого совпал путь -->
-                <router-view></router-view>
-            </div>
-            <div id="app2">
-                <h2>{{message}}</h2>
-
-                <div class="post" v-for="post in posts">
-                    <div class="title">
-                        <a :href="/post/ + post.id">{{ post.name }}</a>
-                        <br>
-                        <div>
-                            <span v-for="category in post.categories"><b>{{category.name}} </b></span>
-                        </div>
-                        <p>{{ post.content }}</p>
-                    </div>
-                </div>
 
 
-            </div>
-
-
-        </div>
-    </div>
-</div>
 <?php $this->beginBody() ?>
 
-<!--        --><?//= $content ?>
+        <?= $content ?>
 
 <?php $this->endBody() ?>
+    </div>
+</div>
 
 </body>
 </html>

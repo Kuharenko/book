@@ -15,4 +15,11 @@ class Category extends ActiveRecord
     {
         return 'category';
     }
+
+    public static function loadMaterials()
+    {
+        return Category::find()
+            ->asArray()
+            ->all();
+    }
 }

@@ -76,6 +76,16 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays detail page.
+     *
+     * @return mixed
+     */
+    public function actionDetail($id)
+    {
+        return $this->render('detail', ['id'=>$id]);
+    }
+
+    /**
      * Logs in a user.
      *
      * @return mixed
@@ -110,38 +120,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 
     /**
      * Signs user up.
@@ -211,5 +189,36 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Displays category page.
+     *
+     * @return mixed
+     */
+    public function actionCategories()
+    {
+        return $this->render('category');
+    }
+
+
+    /**
+     * Displays vocabulary page.
+     *
+     * @return mixed
+     */
+    public function actionVocabulary()
+    {
+        return $this->render('vocabulary');
+    }
+
+    /**
+     * Displays progress page.
+     *
+     * @return mixed
+     */
+    public function actionProgress()
+    {
+        return $this->render('progress');
     }
 }
