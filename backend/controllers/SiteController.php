@@ -51,6 +51,8 @@ class SiteController extends Controller
             // '*',                        // star allows all domains
             'http://test1.example.com',
             'http://book.my',
+            'http://kuharenko.xyz',
+            'http://api.kuharenko.xyz'
         ];
     }
 
