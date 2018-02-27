@@ -52,7 +52,7 @@ class SiteController extends Controller
             'http://test1.example.com',
             'http://book.my',
             'http://kuharenko.xyz',
-            'http://api.kuharenko.xyz'
+            'http://backend.kuharenko.xyz'
         ];
     }
 
