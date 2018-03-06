@@ -169,7 +169,7 @@ int carYear = nissan.yearOfIssue;</code>
                             $('.answer').click(function () {
                                 $.ajax({
                                     type: "POST",
-                                    url: 'http://api.book.my/check-task/2',
+                                    url: 'http://backend.kuharenko.xyz/check-task/2',
                                     data: {"source": myCodeMirror.getValue(), "task_id": 2}, // serializes the form's elements.
                                     success: function(data)
                                     {
@@ -278,7 +278,7 @@ int carYear = nissan.yearOfIssue;</code>
                             $('#send').click(function () {
                                 $.ajax({
                                     type: "POST",
-                                    url: 'http://api.book.my/check-task/1',
+                                    url: 'http://backend.kuharenko.xyz/check-task/1',
                                     data: $("#id_0").serialize(), // serializes the form's elements.
                                     success: function(data)
                                     {
@@ -326,7 +326,7 @@ int carYear = nissan.yearOfIssue;</code>
     //                "Content-Type": "application/json"
     //            });
     //            var that = this;
-    //            fetch('http://api.book.my/post/<?//=$id?>//', {'mode': 'cors', 'headers': myHeaders})
+    //            fetch('http://backend.kuharenko.xyz/post/<?//=$id?>//', {'mode': 'cors', 'headers': myHeaders})
     //                .then(function (response) {
     //                    return response.json();
     //                })
