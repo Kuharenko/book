@@ -24,7 +24,7 @@ $this->title = 'Категории';
                 "Content-Type": "application/json"
             });
             var that = this;
-            fetch('http://backend.book.my/categories', {'mode': 'cors', 'headers': myHeaders})
+            fetch('http://api.book.my/categories', {'mode': 'cors', 'headers': myHeaders})
                 .then(function (response) {
                     return response.json();
                 })

@@ -8,9 +8,11 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
+use frontend\assets\MyAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+MyAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -56,6 +58,12 @@ AppAsset::register($this);
         <?= $content ?>
 
 <?php $this->endBody() ?>
+    </div>
+</div>
+<div class="overlay">
+    <div id="modal">
+        <div class="title"></div>
+        <div class="response"></div>
     </div>
 </div>
 

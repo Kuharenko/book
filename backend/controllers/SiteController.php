@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Task;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -134,4 +135,57 @@ class SiteController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $material;
     }
+
+    public function actionCheckTask($taskId=null, $taskType=null)
+    {
+        if($post = Yii::$app->request->post()){
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $task = Task::findOne($post['task_id']);
+            $answer = $this->checkAnswer($post, $task->taskAnswer, $task->taskType);
+
+            return $answer;
+        }
+    }
+
+    private function checkAnswer($data, $answer, $type)
+    {
+
+        if ($type == 1) {
+
+            $array = explode(",", $answer);
+
+            $user_correct = 0;
+            foreach ($array as $item) {
+                if (isset($data[$item]) && $data[$item] == "on") {
+                    $user_correct++;
+                }
+            }
+            return ($user_correct * 100) / count($array);
+        }else{
+            $output = 0;
+            $source = $data['source'];
+            $ret_var = 0;
+            file_put_contents('upload/test.cpp', $source);
+            if(file_exists('upload/test.cpp')){
+                $upload_dir = Yii::getAlias('@webroot').'/upload/';
+                $full_path = $upload_dir.'test.cpp';
+                $full_path_out = $upload_dir.'test.out';
+                $answer = exec('g++ '.$full_path.' -o '.$full_path_out.' 2>&1', $output, $ret_var);
+                if(file_exists($full_path_out)){
+                    unset($output);
+                    $answer = exec('cd '.$upload_dir.' && ./test.out 2>&1', $output);
+                    $answer = "Помилок немає";
+                    unlink($full_path);
+                    unlink($full_path_out);
+                }else{
+                    $answer = "Присутня помилка!";
+                    unlink($full_path);
+                }
+            }
+
+            return $answer;
+        }
+    }
 }
+
+

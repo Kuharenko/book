@@ -46,6 +46,7 @@ return [
                 'categories' => 'site/categories',
                 'posts' => 'site/posts',
                 'post/<id:\d+>' => 'site/post',
+                'check-task/<id:\d+>' => 'site/check-task',
             ],
         ],
 

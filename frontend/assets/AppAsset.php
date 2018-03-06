@@ -27,7 +27,7 @@ class AppAsset extends AssetBundle
         'js/htmlmixed.js',
         'js/clike.js',
         'js/php.js',
-        'js/app.js'
+        'js/typed.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
