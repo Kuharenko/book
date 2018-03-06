@@ -165,11 +165,16 @@ class SiteController extends Controller
             $output = 0;
             $source = $data['source'];
             $ret_var = 0;
-            file_put_contents('upload/test.cpp', $source);
-            if(file_exists('upload/test.cpp')){
-                $upload_dir = Yii::getAlias('@webroot').'/upload/';
-                $full_path = $upload_dir.'test.cpp';
-                $full_path_out = $upload_dir.'test.out';
+
+
+            $upload_dir = Yii::getAlias('@webroot').'/upload/';
+            $full_path = $upload_dir.'test.cpp';
+            $full_path_out = $upload_dir.'test.out';
+
+            file_put_contents($full_path, $source);
+            if(file_exists($full_path)){
+
+
                 $answer = exec('g++ '.$full_path.' -o '.$full_path_out.' 2>&1', $output, $ret_var);
                 if(file_exists($full_path_out)){
                     unset($output);
