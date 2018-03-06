@@ -306,7 +306,7 @@ int carYear = nissan.yearOfIssue;</code>
                 <div class="more">
                     <div class="tags">
                     <span v-for="category in post.categories">
-                        <b>{{category.name}} </b>
+                        <b>OOП</b>
                     </span>
                     </div>
                 </div>

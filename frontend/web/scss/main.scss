@@ -228,6 +228,7 @@ form{
 }
 
 .overlay{
+  display: none;
   &:before {
     content: " ";
     z-index:3;
@@ -243,6 +244,7 @@ form{
     cursor: pointer;
   }
   &.active {
+    display: block;
     &:before {
       display: block;
     }
