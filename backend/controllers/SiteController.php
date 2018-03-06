@@ -183,7 +183,8 @@ class SiteController extends Controller
                     unlink($full_path);
                     unlink($full_path_out);
                 }else{
-                    $answer = $output;
+//                    $answer = $output;
+                    $answer = "Присутня помилка!";
                     unlink($full_path);
                 }
             }
