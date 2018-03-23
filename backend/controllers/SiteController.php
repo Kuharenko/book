@@ -49,11 +49,11 @@ class SiteController extends Controller
     public static function allowedDomains()
     {
         return [
-            // '*',                        // star allows all domains
-            'http://test1.example.com',
-            'http://book.my',
+//             '*',                        // star allows all domains
+//            'http://test1.example.com',
+//            'http://book.my',
             'http://kuharenko.xyz',
-            'http://backend.kuharenko.xyz'
+//            'http://backend.kuharenko.xyz',
         ];
     }
 
