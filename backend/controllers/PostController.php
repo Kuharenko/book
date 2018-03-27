@@ -15,17 +15,17 @@ class PostController extends ActiveController
 {
     public $modelClass = 'backend\models\Material';
 
-    public function actions()
-    {
-        return ArrayHelper::merge([
-            [
-                'task' => [
-                    'class' => 'backend/actions/TaskAction',
-                    'modelClass' => $this->modelClass,
-                ],
-            ],
-        ], parent::actions());
-    }
+//    public function actions()
+//    {
+//        return ArrayHelper::merge([
+//            [
+//                'task' => [
+//                    'class' => 'backend/actions/TaskAction',
+//                    'modelClass' => $this->modelClass,
+//                ],
+//            ],
+//        ], parent::actions());
+//    }
 
 //    protected function verbs()
 //    {
@@ -42,7 +42,7 @@ class PostController extends ActiveController
             [
                 'class' => Cors::className(),
                 'cors' => [
-                    'Origin' => ['http://kuharenko.xyz'],
+                    'Origin' => ['*'],
                     'Access-Control-Request-Method' => ['GET'],
                 ],
             ],
