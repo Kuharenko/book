@@ -21,6 +21,14 @@ class Material extends ActiveRecord
         return 'material';
     }
 
+    public  function extraFields()
+    {
+
+        return [
+           'categories'
+        ];
+    }
+
     /**
      * Загружаем статьи и категории к ним
      * @return array|ActiveRecord[]

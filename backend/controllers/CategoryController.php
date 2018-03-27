@@ -11,9 +11,10 @@ use yii\rest\ActiveController;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 
-class PostController extends ActiveController
+class CategoryController extends ActiveController
 {
-    public $modelClass = 'backend\models\Material';
+    public $modelClass = 'backend\models\Category';
+
 
     public function behaviors()
     {
@@ -21,7 +22,7 @@ class PostController extends ActiveController
             [
                 'class' => Cors::className(),
                 'cors' => [
-                    'Origin' => ["http://kuharenko.xyz"],
+                    'Origin' => ["http://kuharenko.xyz", "*"],
                     'Access-Control-Request-Method' => ['GET'],
                 ],
             ],

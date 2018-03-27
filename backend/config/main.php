@@ -52,6 +52,7 @@ return [
 //            ],
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'post'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
                 'check-task/<id:\d+>' => 'site/check-task',
 
             ],
