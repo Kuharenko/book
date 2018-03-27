@@ -15,6 +15,9 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -41,12 +44,16 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+//            'rules' => [
+//                'categories' => 'site/categories',
+//                'posts' => 'site/posts',
+//                'post/<id:\d+>' => 'site/post',
+//                'check-task/<id:\d+>' => 'site/check-task',
+//            ],
             'rules' => [
-//                '<action:(.*)>' => 'site/<action>',
-                'categories' => 'site/categories',
-                'posts' => 'site/posts',
-                'post/<id:\d+>' => 'site/post',
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'post'],
                 'check-task/<id:\d+>' => 'site/check-task',
+
             ],
         ],
 
