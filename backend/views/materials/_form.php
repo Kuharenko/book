@@ -14,16 +14,60 @@ use dosamigos\tinymce\TinyMce;
 <script>hljs.initHighlightingOnLoad();</script>
 
 <script>
+
     function jsFunctionToBeCalled(editor) {
         editor.addButton('customCode', {
-            text: 'Код',
+            text: 'Проверка кода',
             icon: false,
             onclick: function () {
                 $('#myModalCode').modal('toggle');
-
                 $('#addCode').click(function () {
                     editor.insertContent('<p>[find_error_in_code]</p><pre>'+ $('#codeArea').val()+'</pre><p>[/find_error_in_code]</p>');
+                $('#addCode').off( "click" );
                 });
+            }
+        })
+
+        editor.addButton('formatCode', {
+            text: 'Форматированый код',
+            icon: false,
+            onclick: function () {
+                $('#myModal').modal('toggle');
+
+
+                $('.get-code').click(function () {
+                    var userCode = $('#unformated-code').val();
+                    var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
+                        hljs.highlightBlock(block);
+                    });
+
+                    $('#area').text($('#tempEl').html());
+
+                    editor.insertContent($('#area').text());
+                    $('.get-code').off('click');
+
+                });
+            }
+        });
+
+        editor.addButton('animCode', {
+            text: 'Анимированый код',
+            icon: false,
+            onclick: function () {
+                $('#myModal').modal('toggle');
+
+                $('.get-code').click(function () {
+                    var userCode = $('#unformated-code').val();
+                    var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
+                        hljs.highlightBlock(block);
+                    });
+
+                    $('#area').text($('#tempEl').html());
+
+                    editor.insertContent('<p>[ts]</p><pre>'+ $('#area').text() +'</pre><p>[/ts]</p>');
+                    $('.get-code').off('click');
+                });
+
             }
         })
     }
@@ -45,7 +89,7 @@ use dosamigos\tinymce\TinyMce;
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste"
             ],
-            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | customCode | addTest",
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | customCode | formatCode | animCode",
             'setup' => new yii\web\JsExpression('jsFunctionToBeCalled'),
         ]
     ]);?>
@@ -132,7 +176,7 @@ class classname {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
-                    <button type="button" class="btn btn-primary get-code" data-clipboard-action="copy" data-clipboard-target="#area">Получить код</button>
+                    <button type="button" class="btn btn-primary get-code" data-clipboard-action="cut" data-clipboard-target="#area">Показать и вставить</button>
                 </div>
             </div>
         </div>
@@ -149,18 +193,18 @@ class classname {
                    *
                    * */
 
-        new ClipboardJS('.get-code', {
-            container: document.getElementById('myModal'),
-            text: function() {
-                var userCode = $('#unformated-code').val();
-                var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
-                    hljs.highlightBlock(block);
-                });
-
-                $('#area').text($('#tempEl').html());
-                return $('#area').text();
-            }
-        });
+//        new ClipboardJS('.get-code', {
+//            container: document.getElementById('myModal'),
+//            text: function() {
+//                var userCode = $('#unformated-code').val();
+//                var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
+//                    hljs.highlightBlock(block);
+//                });
+//
+//                $('#area').text($('#tempEl').html());
+//                return $('#area').text();
+//            }
+//        });
 
     </script>
 </div>
