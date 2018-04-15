@@ -14,6 +14,7 @@ class m180318_123340_add_scripts_field_to_material extends Migration
     {
         $this->addColumn('material', 'post_scripts',$this->text());
         $this->addColumn('material', 'announce',$this->text());
+        $this->addColumn('material', 'clear_html',$this->text());
     }
 
     /**
@@ -23,6 +24,8 @@ class m180318_123340_add_scripts_field_to_material extends Migration
     {
       $this->dropColumn('material', 'post_scripts');
         $this->dropColumn('material', 'announce');
+        $this->dropColumn('material', 'clear_html');
+
     }
 
     /*

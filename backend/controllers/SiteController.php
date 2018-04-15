@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\QuestionAnswer;
 use backend\models\Task;
 use Yii;
 use yii\web\Controller;
@@ -49,7 +50,7 @@ class SiteController extends Controller
     public static function allowedDomains()
     {
         return [
-             '*',                        // star allows all domains
+//             '*',                        // star allows all domains
 //            'http://test1.example.com',
 //            'http://book.my',
             'http://kuharenko.xyz',
@@ -136,53 +137,30 @@ class SiteController extends Controller
         return $material;
     }
 
-    public function actionCheckTask($taskId=null, $taskType=null)
-    {
-        if($post = Yii::$app->request->post()){
+    public function actionCompileCode(){
+        if($post = Yii::$app->request->post()) {
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            $task = Task::findOne($post['task_id']);
-            $answer = $this->checkAnswer($post, $task->taskAnswer, $task->taskType);
-
-            return $answer;
-        }
-    }
-
-    private function checkAnswer($data, $answer, $type)
-    {
-
-        if ($type == 1) {
-
-            $array = explode(",", $answer);
-
-            $user_correct = 0;
-            foreach ($array as $item) {
-                if (isset($data[$item]) && $data[$item] == "on") {
-                    $user_correct++;
-                }
-            }
-            return ($user_correct * 100) / count($array);
-        }else{
             $output = 0;
-            $source = $data['source'];
+            $source = $post['source'];
             $ret_var = 0;
 
 
-            $upload_dir = Yii::getAlias('@webroot').'/upload/';
-            $full_path = $upload_dir.'test.cpp';
-            $full_path_out = $upload_dir.'test.out';
+            $upload_dir = Yii::getAlias('@webroot') . '/upload/';
+            $full_path = $upload_dir . 'test.cpp';
+            $full_path_out = $upload_dir . 'test.out';
 
             file_put_contents($full_path, $source);
-            if(file_exists($full_path)){
+            if (file_exists($full_path)) {
 
 
-                $answer = exec('g++ '.$full_path.' -o '.$full_path_out.' 2>&1', $output, $ret_var);
-                if(file_exists($full_path_out)){
+                $answer = exec('g++ ' . $full_path . ' -o ' . $full_path_out . ' 2>&1', $output, $ret_var);
+                if (file_exists($full_path_out)) {
                     unset($output);
-                    $answer = exec('cd '.$upload_dir.' && ./test.out 2>&1', $output);
+                    $answer = exec('cd ' . $upload_dir . ' && ./test.out 2>&1', $output);
                     $answer = "Помилок немає";
                     unlink($full_path);
                     unlink($full_path_out);
-                }else{
+                } else {
 //                    $answer = $output;
                     $answer = "Присутня помилка!";
                     unlink($full_path);
@@ -191,6 +169,21 @@ class SiteController extends Controller
 
             return $answer;
         }
+    }
+
+    private function checkAnswer($data)
+    {
+            $str = implode(',', $data);
+//            $array = explode(",", $answer);
+            $answers = QuestionAnswer::findAll([]);
+            $user_correct = 0;
+            foreach ($array as $item) {
+                if (isset($data[$item]) && $data[$item] == "on") {
+                    $user_correct++;
+                }
+            }
+            return ($user_correct * 100) / count($array);
+
     }
 }
 

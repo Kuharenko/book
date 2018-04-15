@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 
 class PostController extends ActiveController
 {
-    public $modelClass = 'backend\models\Material';
+    public $modelClass = 'backend\models\Materials';
 
     public function behaviors()
     {
@@ -21,8 +21,10 @@ class PostController extends ActiveController
             [
                 'class' => Cors::className(),
                 'cors' => [
-                    'Origin' => ["http://kuharenko.xyz"],
+                    'Origin' => ["http://kuharenko.xyz", '*'],
+                    'Access-Control-Allow-Credentials' => true,
                     'Access-Control-Request-Method' => ['GET'],
+                    'Access-Control-Request-Headers'=>['*']
                 ],
             ],
         ], parent::behaviors());

@@ -39,10 +39,10 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/user/login']];
     } else {
         $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+            . Html::beginForm(['/user/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
@@ -75,6 +75,17 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<script>
+    function send() {
+        form = $('#log-form');
+        $.post('/user-login/login', {'login':form.find('input[type="text"]').val(), 'password': form.find('input[type="password"]').val() });
+    }
+    form = $('#log-form');
+    $("#sumb").click(function () {
+        $.post('/user-login/login', {'login':form.find('input[type="text"]').val(), 'password': form.find('input[type="password"]').val() });
+        }
+    );
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>

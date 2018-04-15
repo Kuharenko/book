@@ -11,7 +11,12 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'user' => [
+            'class' => 'backend\modules\user\Module',
+            // set custom module properties here ...
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -20,9 +25,15 @@ return [
             ]
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'class' => 'backend\modules\user\components\User'
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => true,
+            'messageConfig' => [
+                'from' => ['admin@website.com' => 'Admin'], // this is needed for sending emails
+                'charset' => 'UTF-8',
+            ]
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
@@ -53,7 +64,9 @@ return [
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'post'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'user-login'],
                 'check-task/<id:\d+>' => 'site/check-task',
+                'compile'=>'site/compile-code'
 
             ],
         ],

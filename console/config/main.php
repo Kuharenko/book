@@ -20,6 +20,14 @@ return [
             'class' => 'yii\console\controllers\FixtureController',
             'namespace' => 'common\fixtures',
           ],
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+        ],
+    ],
+    'modules' => [
+        'user' => [
+            'class' => 'amnah\yii2\user\Module',
+        ],
     ],
     'components' => [
         'log' => [
