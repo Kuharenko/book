@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use backend\modules\user\models\User;
 use Yii;
 
 /**
@@ -34,7 +35,8 @@ class Materials extends \yii\db\ActiveRecord
 
         return [
             'categories',
-            'tests'
+            'tests',
+            'progress'
         ];
     }
 
@@ -47,7 +49,7 @@ class Materials extends \yii\db\ActiveRecord
             [['content', 'post_scripts', 'announce', 'clear_html'], 'string'],
             [['announce'], 'required'],
             [['name'], 'string', 'max' => 255],
-            [['testId'], 'integer']
+            [['testId', 'parent', 'sortIndex'], 'integer']
         ];
     }
 
@@ -63,7 +65,9 @@ class Materials extends \yii\db\ActiveRecord
             'post_scripts' => 'Post Scripts',
             'announce' => 'Announce',
             'clear_html' => 'HTML',
-            'testId' => 'Test ID'
+            'testId' => 'Test ID',
+            'parent' => 'Родительская группа',
+            'sortIndex' => 'Сортировка'
         ];
     }
     /* Получаем категории из связующей таблицы */
@@ -71,6 +75,17 @@ class Materials extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Category::className(), ['id' => 'category_id'])
             ->viaTable('material_categories', ['material_id' => 'id'])->asArray();
+    }
+
+    public function getProgress()
+    {
+        if(Yii::$app->request->get('access-token')){
+            $user = User::findIdentityByAccessToken(Yii::$app->request->get('access-token'));
+            if($user){
+                return $this->hasOne(Progress::className(), ['material_id' => 'id'])->where(['user_id'=>1]);
+            }
+        }
+        return $this->hasOne(Progress::className(), ['material_id' => 'id']);
     }
 
     public function getTests()

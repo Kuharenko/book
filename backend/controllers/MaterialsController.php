@@ -68,7 +68,26 @@ class MaterialsController extends Controller
     {
         $model = new Materials();
         $modelTests = Tests::find()->all();
+        $modelParents = Materials::find()->asArray()->all();
         $items = ArrayHelper::map($modelTests,'id','question');
+        $arr = [];
+
+        foreach ($modelParents as $index=>$modelParent) {
+            $len = 0;
+            $arr[$index] = $this->makeTreeRelatives($modelParent, $len);
+            if($arr[$index]>0){
+                $add = "";
+                for($i = 0; $i<$arr[$index]; $i++){
+                    $add.= " ---";
+                }
+                $modelParents[$index]['name'] = $add." ".$modelParents[$index]['name'];
+            }
+        }
+
+
+        $parents = ArrayHelper::map($modelParents,'id','name');
+        ArrayHelper::setValue($parents,'0', 'Корень');
+        ksort($parents);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,8 +95,23 @@ class MaterialsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'testItems' => $items
+            'testItems' => $items,
+            'parents' => $parents
         ]);
+    }
+
+    /**
+     * @param $array
+     * @return mixed
+     */
+    protected function makeTreeRelatives($item, $len){
+        if($item['parent'] != 0){
+            $len ++;
+            $model = Materials::find()->where(['id'=>$item['parent']])->asArray()->one();
+            return $this->makeTreeRelatives($model, $len);
+        }else{
+            return $len;
+        }
     }
 
     /**
@@ -91,7 +125,29 @@ class MaterialsController extends Controller
     {
         $model = $this->findModel($id);
         $modelTests = Tests::find()->all();
+        $modelParents = Materials::find()->asArray()->all();
         $items = ArrayHelper::map($modelTests,'id','question');
+        $arr = [];
+
+        foreach ($modelParents as $index=>$modelParent) {
+            $len = 0;
+            $arr[$index] = $this->makeTreeRelatives($modelParent, $len);
+            if($arr[$index]>0){
+                $add = "";
+                for($i = 0; $i<$arr[$index]; $i++){
+                    $add.= " ---";
+                }
+                $modelParents[$index]['name'] = $add." ".$modelParents[$index]['name'];
+            }
+        }
+
+
+
+
+        $parents = ArrayHelper::map($modelParents,'id','name');
+        ArrayHelper::setValue($parents,'0', 'Корень');
+        ksort($parents);
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -99,7 +155,8 @@ class MaterialsController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'testItems' => $items
+            'testItems' => $items,
+            'parents' => $parents
         ]);
     }
 

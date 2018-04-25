@@ -2,15 +2,17 @@
 
 namespace backend\controllers;
 
+use backend\models\Progress;
 use backend\models\QuestionAnswer;
 use backend\models\Task;
+use backend\modules\user\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use backend\models\Category;
-use backend\models\Material;
+use backend\models\Materials;
 use backend\models\MaterialCategories;
 
 /**
@@ -184,6 +186,32 @@ class SiteController extends Controller
             }
             return ($user_correct * 100) / count($array);
 
+    }
+
+    public function actionSetTestResult(){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        if (\Yii::$app->getRequest()->getRawBody()) {
+            $data = json_decode(\Yii::$app->getRequest()->getRawBody(), true);
+
+            if (isset($data['token'])) {
+                $user = User::findIdentityByAccessToken($data['token']);
+                if ($user) {
+                    $model = Progress::find()->where(['material_id' => $data['material'], 'task_id' => $data['test'], 'user_id' => $user->id])->one();
+                    if (!$model) {
+                        $model = new Progress();
+                    }
+                    $model->material_id = $data['material'];
+                    $model->task_id = $data['test'];
+                    $model->progress_value = $data['result'];
+                    $model->user_id = $user->id;
+                    $model->save();
+                    return 200;
+                }
+            }
+        }
+
+        return 0;
     }
 }
 

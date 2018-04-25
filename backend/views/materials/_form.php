@@ -79,6 +79,19 @@ use dosamigos\tinymce\TinyMce;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'sortIndex')->textInput() ?>
+
+    <?= $form->field($model, 'parent')->dropDownList($parents)->label('Выберите родительскую группу')?>
+
+<!--    [
+        '0'=>'Без группы',
+            '1' => '--- A',
+        '5' => '------ Y',
+            '2' => '--- B',
+        '3' => '------ A',
+        '4' => '--------- B',
+
+    ]-->
 
     <?= $form->field($model, 'clear_html')->widget(TinyMce::className(), [
         'options' => ['rows' => 20],
@@ -131,10 +144,6 @@ use dosamigos\tinymce\TinyMce;
             </div>
         </div>
     </div>
-
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-        Форматировать код
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

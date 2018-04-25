@@ -66,7 +66,8 @@ return [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'user-login'],
                 'check-task/<id:\d+>' => 'site/check-task',
-                'compile'=>'site/compile-code'
+                'compile'=>'site/compile-code',
+                ''=>'materials/index'
 
             ],
         ],
