@@ -19,7 +19,7 @@ class m180406_155417_widgets extends Migration
             'template'=>$this->text(),
             'html'=>$this->text(),
             'js'=>$this->text(),
-            'params'=>$this->text()
+            'parameters'=>$this->text()
         ]);
     }
 
