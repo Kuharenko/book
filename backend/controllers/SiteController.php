@@ -52,7 +52,7 @@ class SiteController extends Controller
     public static function allowedDomains()
     {
         return [
-//             '*',                        // star allows all domains
+            // '*',                        // star allows all domains
 //            'http://test1.example.com',
 //            'http://book.my',
             'http://kuharenko.xyz',
@@ -158,14 +158,27 @@ class SiteController extends Controller
                 $answer = exec('g++ ' . $full_path . ' -o ' . $full_path_out . ' 2>&1', $output, $ret_var);
                 if (file_exists($full_path_out)) {
                     unset($output);
-                    $answer = exec('cd ' . $upload_dir . ' && ./test.out 2>&1', $output);
+//                    $answer = exec('cd ' . $upload_dir . ' && ./test.out 2>&1', $output);
                     $answer = "Помилок немає";
                     unlink($full_path);
                     unlink($full_path_out);
                 } else {
 //                    $answer = $output;
-                    $answer = "Присутня помилка!";
+                    $answer = $output;
+
+                    foreach ($answer as $index=>$error){
+                        $substr = explode('/test.cpp',$error);
+                        if(count($substr)>1){
+                            $answer[$index] = 'code.cpp'.  $substr[1];
+                        }
+
+                    }
+                    $err = $this->findErrors($answer);
+                    $arr = implode(PHP_EOL, $answer);
+                    $answer = $arr;
                     unlink($full_path);
+
+                    return array('errors'=>$answer, 'lines'=>$err);
                 }
             }
 
@@ -186,6 +199,21 @@ class SiteController extends Controller
             }
             return ($user_correct * 100) / count($array);
 
+    }
+
+    private function findErrors($array)
+    {
+        $errors = [];
+        foreach ($array as $item){
+            $er = explode(' error:', $item);
+            if(count($er)>1){
+
+                $line = explode('cpp:', $er[0]);
+                array_push($errors, explode(':', $line[1])[0]);
+            }
+        }
+
+        return $errors;
     }
 
     public function actionSetTestResult(){

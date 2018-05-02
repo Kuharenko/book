@@ -17,7 +17,7 @@ use dosamigos\tinymce\TinyMce;
 
     function jsFunctionToBeCalled(editor) {
         editor.addButton('customCode', {
-            text: 'Проверка кода',
+            text: 'Перевірка коду',
             icon: false,
             onclick: function () {
                 $('#myModalCode').modal('toggle');
@@ -29,7 +29,7 @@ use dosamigos\tinymce\TinyMce;
         })
 
         editor.addButton('formatCode', {
-            text: 'Форматированый код',
+            text: 'Форматований код',
             icon: false,
             onclick: function () {
                 $('#myModal').modal('toggle');
@@ -51,7 +51,7 @@ use dosamigos\tinymce\TinyMce;
         });
 
         editor.addButton('animCode', {
-            text: 'Анимированый код',
+            text: 'Анімований код',
             icon: false,
             onclick: function () {
                 $('#myModal').modal('toggle');
@@ -81,7 +81,7 @@ use dosamigos\tinymce\TinyMce;
 
     <?= $form->field($model, 'sortIndex')->textInput() ?>
 
-    <?= $form->field($model, 'parent')->dropDownList($parents)->label('Выберите родительскую группу')?>
+    <?= $form->field($model, 'parent')->dropDownList($parents)->label('Виберіть батьківську групу')?>
 
 <!--    [
         '0'=>'Без группы',
@@ -107,14 +107,27 @@ use dosamigos\tinymce\TinyMce;
         ]
     ]);?>
 
+    <?= $form->field($model, 'sources')->widget(TinyMce::className(), [
+        'options' => ['rows' => 10],
+        'language' => 'en',
+        'clientOptions' => [
+            'plugins' => [
+                "advlist autolink lists link charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste"
+            ],
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        ]
+    ]);?>
+
     <?= $form->field($model, 'announce')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'testId')->dropDownList($testItems, [
-        'prompt' => 'Выберите тест'
-    ])->label('Выберите тест из существующих тестов или создайте свой')?>
+        'prompt' => 'Виберіть тест'
+    ])->label('Виберіть тест з існуючих або створіть власній')?>
 
     <div class="form-group">
-        <?= Html::a('Создать тест', ['tests/create', 'appendTo'=>$model->id], ['onclick'=> new yii\web\JsExpression("return confirm('Все несохрененные изменения будут утеряны. Хотите продолжить?')")])?>
+        <?= Html::a('Створити тест', ['tests/create', 'appendTo'=>$model->id], ['onclick'=> new yii\web\JsExpression("return confirm('Усі не збережені данні будуть втрачені. Продовжити?')")])?>
     </div>
 
     <div id="area" style="font-size: 0px" ></div>
@@ -122,7 +135,7 @@ use dosamigos\tinymce\TinyMce;
     <div id="res" style="font-size: 0px"></div>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Зберегти', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -155,7 +168,7 @@ use dosamigos\tinymce\TinyMce;
                 </div>
                 <div class="modal-body">
                     <div class="form-group field-materials-announce required has-success">
-                        <label class="control-label" for="unformated-code">Неформатованый код</label>
+                        <label class="control-label" for="unformated-code">Неформатований код</label>
                         <textarea id="unformated-code" class="form-control" rows="6" aria-required="true" aria-invalid="false">
 class classname {
     private:
@@ -185,7 +198,7 @@ class classname {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
-                    <button type="button" class="btn btn-primary get-code" data-clipboard-action="cut" data-clipboard-target="#area">Показать и вставить</button>
+                    <button type="button" class="btn btn-primary get-code" data-clipboard-action="cut" data-clipboard-target="#area">Показати та додати</button>
                 </div>
             </div>
         </div>

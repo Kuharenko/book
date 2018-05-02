@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\WidgetsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Widgets';
+$this->title = 'Віджети';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="widgets-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Widgets', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Створити віджет', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

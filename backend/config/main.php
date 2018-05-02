@@ -7,7 +7,9 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-backend',
+    'id' => 'Адміністративна панель',
+    'name' => 'Адміністративна панель',
+    'language' => 'ukr',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],

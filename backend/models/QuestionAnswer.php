@@ -44,9 +44,9 @@ class QuestionAnswer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'questionId' => 'Question ID',
-            'variant' => 'Variant',
-            'isRight' => 'Is Right',
+            'questionId' => 'ID запитання',
+            'variant' => 'Варіант відповіді',
+            'isRight' => 'Чи є відповідь вірною?',
         ];
     }
 

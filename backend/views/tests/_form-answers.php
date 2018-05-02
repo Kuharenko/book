@@ -26,7 +26,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 <?php foreach ($modelsAnswers as $indexAnswer => $modelAnswer): ?>
     <div class="answer-item panel panel-default"><!-- widgetBody -->
         <div class="panel-heading">
-            <h3 class="panel-title pull-left">Вариант ответа</h3>
+            <h3 class="panel-title pull-left">Варіанти відповідей</h3>
             <div class="pull-right">
                 <button type="button" class="add-answer btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i>
                 </button>

@@ -125,19 +125,21 @@ class MaterialsController extends Controller
     {
         $model = $this->findModel($id);
         $modelTests = Tests::find()->all();
-        $modelParents = Materials::find()->asArray()->all();
+        $modelParents = Materials::find()->where('id != :id', ['id'=>$id])->asArray()->all();
         $items = ArrayHelper::map($modelTests,'id','question');
         $arr = [];
 
         foreach ($modelParents as $index=>$modelParent) {
-            $len = 0;
-            $arr[$index] = $this->makeTreeRelatives($modelParent, $len);
-            if($arr[$index]>0){
-                $add = "";
-                for($i = 0; $i<$arr[$index]; $i++){
-                    $add.= " ---";
-                }
-                $modelParents[$index]['name'] = $add." ".$modelParents[$index]['name'];
+
+                $len = 0;
+                $arr[$index] = $this->makeTreeRelatives($modelParent, $len);
+                if ($arr[$index] > 0) {
+                    $add = "";
+                    for ($i = 0; $i < $arr[$index]; $i++) {
+                        $add .= " ---";
+                    }
+                    $modelParents[$index]['name'] = $add . " " . $modelParents[$index]['name'];
+
             }
         }
 
@@ -145,7 +147,7 @@ class MaterialsController extends Controller
 
 
         $parents = ArrayHelper::map($modelParents,'id','name');
-        ArrayHelper::setValue($parents,'0', 'Корень');
+        ArrayHelper::setValue($parents,'0', 'Корінь');
         ksort($parents);
 
 

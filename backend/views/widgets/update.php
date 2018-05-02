@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Widgets */
 
-$this->title = 'Update Widgets: {nameAttribute}';
-$this->params['breadcrumbs'][] = ['label' => 'Widgets', 'url' => ['index']];
+$this->title = 'Оновити віджет';
+$this->params['breadcrumbs'][] = ['label' => 'Віджети', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Оновити';
 ?>
 <div class="widgets-update">
 

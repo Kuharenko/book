@@ -44,12 +44,12 @@ class Widgets extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'status' => 'Status',
-            'name' => 'Name',
-            'template' => 'Template',
+            'status' => 'Статус',
+            'name' => 'Назва',
+            'template' => 'Шаблон',
             'html' => 'Html',
             'js' => 'Js',
-            'parameters' => 'Parameters',
+            'parameters' => 'Параметри віджету',
         ];
     }
 }

@@ -15,6 +15,7 @@ use Yii;
  * @property string $announce
  * @property string $clear_html
  * @property int $testId
+ * @property string $sources
  *
  * @property MaterialCategories[] $materialCategories
  * @property MaterialTask[] $materialTasks
@@ -46,7 +47,7 @@ class Materials extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'post_scripts', 'announce', 'clear_html'], 'string'],
+            [['content', 'post_scripts', 'announce', 'clear_html', 'sources'], 'string'],
             [['announce'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['testId', 'parent', 'sortIndex'], 'integer']
@@ -60,14 +61,15 @@ class Materials extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'content' => 'Content',
-            'post_scripts' => 'Post Scripts',
-            'announce' => 'Announce',
-            'clear_html' => 'HTML',
-            'testId' => 'Test ID',
-            'parent' => 'Родительская группа',
-            'sortIndex' => 'Сортировка'
+            'name' => 'Назва',
+            'content' => 'Форматований зміст',
+            'post_scripts' => 'Скрипти',
+            'announce' => 'Короткий зміст',
+            'clear_html' => 'Зміст',
+            'testId' => 'ID тесту',
+            'parent' => 'Батьківска група',
+            'sortIndex' => 'Індекс сортування',
+            'sources' => 'Джерела'
         ];
     }
     /* Получаем категории из связующей таблицы */

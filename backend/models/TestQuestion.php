@@ -44,8 +44,8 @@ class TestQuestion extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'testId' => 'Test ID',
-            'question' => 'Question',
+            'testId' => 'ID тесту',
+            'question' => 'Запитання',
         ];
     }
 

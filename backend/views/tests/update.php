@@ -7,10 +7,10 @@ use yii\helpers\Html;
 /* @var $modelsQuestions backend\models\TestQuestion */
 /* @var $modelsAnswers backend\models\QuestionAnswer */
 
-$this->title = 'Update Tests: {nameAttribute}';
-$this->params['breadcrumbs'][] = ['label' => 'Tests', 'url' => ['index']];
+$this->title = 'Оновити тест';
+$this->params['breadcrumbs'][] = ['label' => 'Тести', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $modelTest->id, 'url' => ['view', 'id' => $modelTest->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Оновити';
 ?>
 <div class="tests-update">
 

@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Materials */
 
-$this->title = 'Create Materials';
-$this->params['breadcrumbs'][] = ['label' => 'Materials', 'url' => ['index']];
+$this->title = 'Додати матеріали';
+$this->params['breadcrumbs'][] = ['label' => 'Матеріали', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="materials-create">

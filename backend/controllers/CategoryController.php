@@ -22,7 +22,7 @@ class CategoryController extends ActiveController
             [
                 'class' => Cors::className(),
                 'cors' => [
-                    'Origin' => ["http://kuharenko.xyz", "*"],
+                    'Origin' => ["http://kuharenko.xyz"],
                     'Access-Control-Request-Method' => ['GET'],
                 ],
             ],

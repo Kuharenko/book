@@ -40,7 +40,7 @@ class Tests extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'question' => 'Название теста',
+            'question' => 'Назва тесту',
         ];
     }
 
