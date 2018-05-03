@@ -287,7 +287,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         // hash new password if set
         if ($this->newPassword) {
-            $this->newPassword = Yii::$app->security->generatePasswordHash($this->newPassword);
+            $this->password = Yii::$app->security->generatePasswordHash($this->newPassword);
         }
 
         // convert banned_at checkbox to date
