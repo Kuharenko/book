@@ -84,7 +84,7 @@ class Materials extends \yii\db\ActiveRecord
         if(Yii::$app->request->get('access-token')){
             $user = User::findIdentityByAccessToken(Yii::$app->request->get('access-token'));
             if($user){
-                return $this->hasOne(Progress::className(), ['material_id' => 'id'])->where(['user_id'=>1]);
+                return $this->hasOne(Progress::className(), ['material_id' => 'id'])->where(['user_id'=>$user->id]);
             }
         }
         return $this->hasOne(Progress::className(), ['material_id' => 'id']);
