@@ -118,7 +118,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         // add required for currentPassword on account page
         // only if $this->password is set (might be null from a social login)
-        if ($this->currentPassword) {
+        if ($this->password) {
             $rules[] = [['currentPassword'], 'required', 'on' => ['account']];
         }
 
@@ -287,7 +287,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         // hash new password if set
         if ($this->newPassword) {
-            $this->password = Yii::$app->security->generatePasswordHash($this->newPassword);
+            $this->newPassword = Yii::$app->security->generatePasswordHash($this->newPassword);
         }
 
         // convert banned_at checkbox to date
