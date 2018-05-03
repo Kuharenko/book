@@ -118,7 +118,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         // add required for currentPassword on account page
         // only if $this->password is set (might be null from a social login)
-        if ($this->password) {
+        if ($this->currentPassword) {
             $rules[] = [['currentPassword'], 'required', 'on' => ['account']];
         }
 
