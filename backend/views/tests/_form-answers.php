@@ -46,8 +46,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
         <div class="col-sm-8">
             <?= $form->field($modelAnswer, "[{$indexTest}][{$indexAnswer}]variant")->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-sm-4">
-            <?= $form->field($modelAnswer, "[{$indexTest}][{$indexAnswer}]isRight")->textInput(['maxlength' => true]) ?>
+        <div class="col-sm-4" style="padding-top: 27px">
+            <?= $form->field($modelAnswer, "[{$indexTest}][{$indexAnswer}]isRight")->checkbox() ?>
         </div>
     </div>
 

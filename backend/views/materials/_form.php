@@ -93,6 +93,8 @@ use dosamigos\tinymce\TinyMce;
 
     ]-->
 
+    <?= $form->field($model, 'announce')->textarea(['rows' => 6]) ?>
+
     <?= $form->field($model, 'clear_html')->widget(TinyMce::className(), [
         'options' => ['rows' => 20],
         'language' => 'en',
@@ -119,8 +121,6 @@ use dosamigos\tinymce\TinyMce;
             'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         ]
     ]);?>
-
-    <?= $form->field($model, 'announce')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'testId')->dropDownList($testItems, [
         'prompt' => 'Виберіть тест'

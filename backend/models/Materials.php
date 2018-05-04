@@ -48,7 +48,7 @@ class Materials extends \yii\db\ActiveRecord
     {
         return [
             [['content', 'post_scripts', 'announce', 'clear_html', 'sources'], 'string'],
-            [['announce'], 'required'],
+            [['name','announce', 'clear_html'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['testId', 'parent', 'sortIndex'], 'integer']
         ];
