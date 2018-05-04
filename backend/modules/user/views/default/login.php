@@ -16,13 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-
-    <form id="log-form">
-        <input type="text" name="login" placeholder="login">
-        <input type="password" name="password" placeholder="password">
-        <button id="subm" type="button" onclick="send()">submit</button>
-    </form>
-
     <script>
 
 
@@ -65,9 +58,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php endif; ?>
 
-    <div class="col-lg-offset-2" style="color:#999;">
-        You may login with <strong>neo/neo</strong>.<br>
-        To modify the username/password, log in first and then <?= HTML::a("update your account", ["/user/account"]) ?>.
-    </div>
 
 </div>

@@ -10,6 +10,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\HttpException;
+use yii\filters\AccessControl;
 
 /**
  * MaterialsController implements the CRUD actions for Materials model.
@@ -28,6 +30,17 @@ class MaterialsController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create',  'view','update', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -37,6 +50,10 @@ class MaterialsController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
         $searchModel = new MaterialsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,6 +71,9 @@ class MaterialsController extends Controller
      */
     public function actionView($id)
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -66,6 +86,9 @@ class MaterialsController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
         $model = new Materials();
         $modelTests = Tests::find()->all();
         $modelParents = Materials::find()->asArray()->all();
@@ -123,6 +146,9 @@ class MaterialsController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
         $model = $this->findModel($id);
         $modelTests = Tests::find()->all();
         $modelParents = Materials::find()->where('id != :id', ['id'=>$id])->asArray()->all();
@@ -171,6 +197,9 @@ class MaterialsController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

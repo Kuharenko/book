@@ -15,6 +15,8 @@ use common\models\Model;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\web\HttpException;
+use yii\filters\AccessControl;
 
 /**
  * TestsController implements the CRUD actions for Tests model.
@@ -33,6 +35,17 @@ class TestsController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view','create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index',  'view',  'create', 'update', 'delete'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -42,6 +55,10 @@ class TestsController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
         $searchModel = new TestsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -59,6 +76,11 @@ class TestsController extends Controller
      */
     public function actionView($id)
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -71,6 +93,10 @@ class TestsController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
         $modelTest = new Tests();
         $modelsQuestions = [new TestQuestion()];
         $modelsAnswers = [[new QuestionAnswer]];
@@ -169,6 +195,10 @@ class TestsController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
 
         $modelTest = $this->findModel($id);;
         $modelsQuestions = $modelTest->testQuestions;
@@ -278,6 +308,11 @@ class TestsController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

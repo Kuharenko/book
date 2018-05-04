@@ -8,6 +8,8 @@ use backend\models\WidgetsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\HttpException;
+use yii\filters\AccessControl;
 
 /**
  * WidgetsController implements the CRUD actions for Widgets model.
@@ -26,6 +28,17 @@ class WidgetsController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view','create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index',  'view',  'create', 'update', 'delete'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -35,6 +48,10 @@ class WidgetsController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
         $searchModel = new WidgetsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +69,11 @@ class WidgetsController extends Controller
      */
     public function actionView($id)
     {
+
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,6 +86,10 @@ class WidgetsController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
         $model = new Widgets();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +110,10 @@ class WidgetsController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,6 +134,10 @@ class WidgetsController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!Yii::$app->user->can("admin")) {
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
