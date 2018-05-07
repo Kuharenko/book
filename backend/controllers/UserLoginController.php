@@ -33,7 +33,7 @@ class UserLoginController extends ActiveController
             [
                 'class' => Cors::className(),
                 'cors' => [
-                    'Origin' => ["http://kuharenko.xyz"],
+                    'Origin' => ["http://kuharenko.xyz", "*"],
                     'Access-Control-Request-Method' => ['POST'],
                     'Access-Control-Request-Headers'=>['*'],
                     'Access-Control-Allow-Credentials' => true
