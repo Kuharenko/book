@@ -35,7 +35,6 @@ class m180413_182651_tests extends Migration
         $this->addForeignKey('FkTestId', 'test_question', 'testId', 'tests', 'id', 'CASCADE');
         $this->addForeignKey('FkQuestionId', 'question_answer', 'questionId', 'test_question', 'id', 'CASCADE');
         $this->addForeignKey('FkMaterialTestId', 'material', 'testId', 'tests', 'id', 'SET NULL');
-        $this->addForeignKey('progress_task_id', 'progress', 'task_id', 'tests', 'id');
     }
 
     /**

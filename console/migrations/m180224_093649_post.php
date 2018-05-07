@@ -13,9 +13,15 @@ class m180224_093649_post extends Migration
     public function safeUp()
     {
         $this->createTable('material', [
-           'id'=>$this->primaryKey(),
+            'id' => $this->primaryKey(),
             'name' => $this->string(),
-            'content'=> $this->text()
+            'content' => $this->text(),
+            'post_scripts' => $this->text(),
+            'announce' => $this->text(),
+            'clear_html' => $this->text(),
+            'parent' => $this->integer()->defaultValue(0),
+            'sortIndex' => $this->integer()->defaultValue(0),
+            'sources'=> $this->text()
         ]);
 
     }
@@ -25,21 +31,6 @@ class m180224_093649_post extends Migration
      */
     public function safeDown()
     {
-      $this->dropTable('material');
+        $this->dropTable('material');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m180224_093649_post cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

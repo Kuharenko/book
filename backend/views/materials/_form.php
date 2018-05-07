@@ -75,7 +75,7 @@ use dosamigos\tinymce\TinyMce;
 
 <div class="materials-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -102,10 +102,18 @@ use dosamigos\tinymce\TinyMce;
             'plugins' => [
                 "advlist autolink lists link charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste"
+                "insertdatetime media table contextmenu paste image responsivefilemanager filemanager"
             ],
-            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | customCode | formatCode | animCode",
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | responsivefilemanager link image media | customCode | formatCode | animCode",
             'setup' => new yii\web\JsExpression('jsFunctionToBeCalled'),
+            'external_filemanager_path' => '/plugins/responsivefilemanager/filemanager/',
+            'filemanager_title' => 'Responsive Filemanager',
+            'external_plugins' => [
+                //Иконка/кнопка загрузки файла в диалоге вставки изображения.
+                'filemanager' => '/plugins/responsivefilemanager/filemanager/plugin.min.js',
+                //Иконка/кнопка загрузки файла в панеле иснструментов.
+                'responsivefilemanager' => '/plugins/responsivefilemanager/tinymce/plugins/responsivefilemanager/plugin.min.js',
+            ],
         ]
     ]);?>
 
@@ -119,6 +127,14 @@ use dosamigos\tinymce\TinyMce;
                 "insertdatetime media table contextmenu paste"
             ],
             'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            'external_filemanager_path' => '/plugins/responsivefilemanager/filemanager/',
+            'filemanager_title' => 'Responsive Filemanager',
+            'external_plugins' => [
+                //Иконка/кнопка загрузки файла в диалоге вставки изображения.
+                'filemanager' => '/plugins/responsivefilemanager/filemanager/plugin.min.js',
+                //Иконка/кнопка загрузки файла в панеле иснструментов.
+                'responsivefilemanager' => '/plugins/responsivefilemanager/tinymce/plugins/responsivefilemanager/plugin.min.js',
+            ],
         ]
     ]);?>
 
