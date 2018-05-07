@@ -98,7 +98,11 @@ use dosamigos\tinymce\TinyMce;
     <?= $form->field($model, 'clear_html')->widget(TinyMce::className(), [
         'options' => ['rows' => 20],
         'language' => 'en',
+
         'clientOptions' => [
+            'relative_urls' => false,
+            'remove_script_host' => false,
+            'convert_urls' => true,
             'plugins' => [
                 "advlist autolink lists link charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",
