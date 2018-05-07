@@ -35,7 +35,7 @@ class Materials extends \yii\db\ActiveRecord
     {
 
         return [
-            'categories',
+//            'categories',
             'tests',
             'progress'
         ];
@@ -115,10 +115,10 @@ class Materials extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMaterialCategories()
-    {
-        return $this->hasMany(MaterialCategories::className(), ['material_id' => 'id']);
-    }
+//    public function getMaterialCategories()
+//    {
+//        return $this->hasMany(MaterialCategories::className(), ['material_id' => 'id']);
+//    }
 
     /**
      * @return \yii\db\ActiveQuery
