@@ -73,11 +73,11 @@ class Materials extends \yii\db\ActiveRecord
         ];
     }
     /* Получаем категории из связующей таблицы */
-    public function getCategories()
-    {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])
-            ->viaTable('material_categories', ['material_id' => 'id'])->asArray();
-    }
+//    public function getCategories()
+//    {
+//        return $this->hasMany(Category::className(), ['id' => 'category_id'])
+//            ->viaTable('material_categories', ['material_id' => 'id'])->asArray();
+//    }
 
     public function getProgress()
     {
