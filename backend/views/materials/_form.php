@@ -38,7 +38,7 @@ use dosamigos\tinymce\TinyMce;
                 $('.get-code').click(function () {
                     var userCode = $('#unformated-code').val();
                     var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
-                        hljs.highlightBlock(block);
+                        hljs.lineNumbersBlock(block);
                     });
 
                     $('#area').text($('#tempEl').html());
@@ -59,7 +59,7 @@ use dosamigos\tinymce\TinyMce;
                 $('.get-code').click(function () {
                     var userCode = $('#unformated-code').val();
                     var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
-                        hljs.highlightBlock(block);
+                        hljs.lineNumbersBlock(block);
                     });
 
                     $('#area').text($('#tempEl').html());
