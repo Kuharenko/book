@@ -13,7 +13,7 @@ use dosamigos\tinymce\TinyMce;
 <script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.3.0/dist/highlightjs-line-numbers.min.js"></script>
 <script src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
 <script>hljs.initHighlightingOnLoad();
-    hljs.initLineNumbersOnLoad();</script>
+    //hljs.initLineNumbersOnLoad();</script>
 
 <script>
 
@@ -24,8 +24,8 @@ use dosamigos\tinymce\TinyMce;
             onclick: function () {
                 $('#myModalCode').modal('toggle');
                 $('#addCode').click(function () {
-                    editor.insertContent('<p>[find_error_in_code]</p><pre>'+ $('#codeArea').val()+'</pre><p>[/find_error_in_code]</p>');
-                $('#addCode').off( "click" );
+                    editor.insertContent('<p>[find_error_in_code]</p><pre>' + $('#codeArea').val() + '</pre><p>[/find_error_in_code]</p>');
+                    $('#addCode').off("click");
                 });
             }
         })
@@ -39,14 +39,39 @@ use dosamigos\tinymce\TinyMce;
 
                 $('.get-code').click(function () {
                     var userCode = $('#unformated-code').val();
-                    var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
-                        hljs.lineNumbersBlock(block);
+                    var formattedUserCode = $('#fm').html(userCode).each(function (i, block) {
+                        hljs.highlightBlock(block);
                     });
+
 
                     $('#area').text($('#tempEl').html());
 
                     editor.insertContent($('#area').text());
                     $('.get-code').off('click');
+
+
+                });
+            }
+        });
+
+        editor.addButton('formatCodeNums', {
+            text: 'Форматований код з нумерацією',
+            icon: false,
+            onclick: function () {
+                $('#myModal').modal('toggle');
+
+
+                $('.get-code').click(function () {
+                    var userCode = $('#unformated-code').val();
+                    var formattedUserCode = $('#fm').html(userCode).each(function (i, block) {
+                        hljs.highlightBlock(block);
+                    });
+
+                    $('#area').text($('#tempEl').html());
+                    //
+                    editor.insertContent('<p>[code_with_line_numbers]</p>' + $('#area').text() + '<p>[/code_with_line_numbers]</p>');
+                    $('.get-code').off('click');
+
 
                 });
             }
@@ -60,13 +85,14 @@ use dosamigos\tinymce\TinyMce;
 
                 $('.get-code').click(function () {
                     var userCode = $('#unformated-code').val();
-                    var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
+                    var formattedUserCode = $('#fm').html(userCode).each(function (i, block) {
+                        hljs.highlightBlock(block);
                         hljs.lineNumbersBlock(block);
                     });
 
                     $('#area').text($('#tempEl').html());
 
-                    editor.insertContent('<p>[ts]</p><pre>'+ $('#area').text() +'</pre><p>[/ts]</p>');
+                    editor.insertContent('<p>[ts]</p><pre>' + $('#area').text() + '</pre><p>[/ts]</p>');
                     $('.get-code').off('click');
                 });
 
@@ -83,17 +109,17 @@ use dosamigos\tinymce\TinyMce;
 
     <?= $form->field($model, 'sortIndex')->textInput() ?>
 
-    <?= $form->field($model, 'parent')->dropDownList($parents)->label('Виберіть батьківську групу')?>
+    <?= $form->field($model, 'parent')->dropDownList($parents)->label('Виберіть батьківську групу') ?>
 
-<!--    [
-        '0'=>'Без группы',
-            '1' => '--- A',
-        '5' => '------ Y',
-            '2' => '--- B',
-        '3' => '------ A',
-        '4' => '--------- B',
+    <!--    [
+            '0'=>'Без группы',
+                '1' => '--- A',
+            '5' => '------ Y',
+                '2' => '--- B',
+            '3' => '------ A',
+            '4' => '--------- B',
 
-    ]-->
+        ]-->
 
     <?= $form->field($model, 'announce')->textarea(['rows' => 6]) ?>
 
@@ -110,7 +136,7 @@ use dosamigos\tinymce\TinyMce;
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste image responsivefilemanager filemanager"
             ],
-            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | responsivefilemanager link image media | customCode | formatCode | animCode",
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | responsivefilemanager link image media | customCode | formatCode | formatCodeNums |",
             'setup' => new yii\web\JsExpression('jsFunctionToBeCalled'),
             'external_filemanager_path' => '/plugins/responsivefilemanager/filemanager/',
             'filemanager_title' => 'Responsive Filemanager',
@@ -121,7 +147,7 @@ use dosamigos\tinymce\TinyMce;
                 'responsivefilemanager' => '/plugins/responsivefilemanager/tinymce/plugins/responsivefilemanager/plugin.min.js',
             ],
         ]
-    ]);?>
+    ]); ?>
 
     <?= $form->field($model, 'sources')->widget(TinyMce::className(), [
         'options' => ['rows' => 10],
@@ -142,17 +168,17 @@ use dosamigos\tinymce\TinyMce;
                 'responsivefilemanager' => '/plugins/responsivefilemanager/tinymce/plugins/responsivefilemanager/plugin.min.js',
             ],
         ]
-    ]);?>
+    ]); ?>
 
     <?= $form->field($model, 'testId')->dropDownList($testItems, [
         'prompt' => 'Виберіть тест'
-    ])->label('Виберіть тест з існуючих або створіть власній')?>
+    ])->label('Виберіть тест з існуючих або створіть власній') ?>
 
     <div class="form-group">
-        <?= Html::a('Створити тест', ['tests/create', 'appendTo'=>$model->id], ['onclick'=> new yii\web\JsExpression("return confirm('Усі не збережені данні будуть втрачені. Продовжити?')")])?>
+        <?= Html::a('Створити тест', ['tests/create', 'appendTo' => $model->id], ['onclick' => new yii\web\JsExpression("return confirm('Усі не збережені данні будуть втрачені. Продовжити?')")]) ?>
     </div>
 
-    <div id="area" style="font-size: 0px" ></div>
+    <div id="area" style="font-size: 0px"></div>
 
     <div id="res" style="font-size: 0px"></div>
 
@@ -166,7 +192,8 @@ use dosamigos\tinymce\TinyMce;
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalCodeLabel">Додати код</h4>
                 </div>
                 <div class="modal-body">
@@ -185,13 +212,15 @@ use dosamigos\tinymce\TinyMce;
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Форматування коду</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group field-materials-announce required has-success">
                         <label class="control-label" for="unformated-code">Неформатований код</label>
-                        <textarea id="unformated-code" class="form-control" rows="6" aria-required="true" aria-invalid="false">
+                        <textarea id="unformated-code" class="form-control" rows="6" aria-required="true"
+                                  aria-invalid="false">
 class classname {
     private:
         // закриті функції та дані
@@ -220,7 +249,9 @@ class classname {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
-                    <button type="button" class="btn btn-primary get-code" data-clipboard-action="cut" data-clipboard-target="#area">Показати та додати</button>
+                    <button type="button" class="btn btn-primary get-code" data-clipboard-action="cut"
+                            data-clipboard-target="#area">Показати та додати
+                    </button>
                 </div>
             </div>
         </div>
@@ -228,27 +259,27 @@ class classname {
 
     <script>
 
-                    /*
-                   *
-                   * 1. Получить код
-                   * 2. Отформатировать код скриптом
-                   * 3. Занести код в временный блок, для копирования
-                   * 4. Скопировать код из блока в буфер
-                   *
-                   * */
+        /*
+       *
+       * 1. Получить код
+       * 2. Отформатировать код скриптом
+       * 3. Занести код в временный блок, для копирования
+       * 4. Скопировать код из блока в буфер
+       *
+       * */
 
-//        new ClipboardJS('.get-code', {
-//            container: document.getElementById('myModal'),
-//            text: function() {
-//                var userCode = $('#unformated-code').val();
-//                var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
-//                    hljs.highlightBlock(block);
-//                });
-//
-//                $('#area').text($('#tempEl').html());
-//                return $('#area').text();
-//            }
-//        });
+        //        new ClipboardJS('.get-code', {
+        //            container: document.getElementById('myModal'),
+        //            text: function() {
+        //                var userCode = $('#unformated-code').val();
+        //                var formattedUserCode = $('#fm').html(userCode).each(function(i, block) {
+        //                    hljs.highlightBlock(block);
+        //                });
+        //
+        //                $('#area').text($('#tempEl').html());
+        //                return $('#area').text();
+        //            }
+        //        });
 
     </script>
 </div>
