@@ -10,11 +10,8 @@ use dosamigos\tinymce\TinyMce;
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.3.0/dist/highlightjs-line-numbers.min.js"></script>
 <script src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
-<script>hljs.initHighlightingOnLoad();
-    //hljs.initLineNumbersOnLoad();</script>
-
+<script>hljs.initHighlightingOnLoad();</script>
 <script>
 
     function jsFunctionToBeCalled(editor) {
@@ -87,7 +84,6 @@ use dosamigos\tinymce\TinyMce;
                     var userCode = $('#unformated-code').val();
                     var formattedUserCode = $('#fm').html(userCode).each(function (i, block) {
                         hljs.highlightBlock(block);
-                        hljs.lineNumbersBlock(block);
                     });
 
                     $('#area').text($('#tempEl').html());
@@ -136,7 +132,7 @@ use dosamigos\tinymce\TinyMce;
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste image responsivefilemanager filemanager"
             ],
-            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | responsivefilemanager link image media | customCode | formatCode | formatCodeNums |",
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | responsivefilemanager link image media | customCode | formatCode | formatCodeNums | animCode",
             'setup' => new yii\web\JsExpression('jsFunctionToBeCalled'),
             'external_filemanager_path' => '/plugins/responsivefilemanager/filemanager/',
             'filemanager_title' => 'Responsive Filemanager',
