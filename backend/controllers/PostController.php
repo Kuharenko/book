@@ -27,12 +27,13 @@ class PostController extends ActiveController
             [
                 'class' => Cors::className(),
                 'cors' => [
-                    'Origin' => ["http://kuharenko.xyz", "*"],
+                    'Origin' => ["http://kuharenko.xyz"],
                     'Access-Control-Allow-Credentials' => true,
                     'Access-Control-Request-Method' => ['GET'],
                     'Access-Control-Request-Headers'=>['*'],
                     'Access-Control-Allow-Headers' => true
                 ],
+
             ],
         ], parent::behaviors());
     }

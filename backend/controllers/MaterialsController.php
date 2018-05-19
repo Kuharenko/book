@@ -109,7 +109,7 @@ class MaterialsController extends Controller
 
 
         $parents = ArrayHelper::map($modelParents,'id','name');
-        ArrayHelper::setValue($parents,'0', 'Корень');
+        ArrayHelper::setValue($parents,'0', 'Корінь');
         ksort($parents);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

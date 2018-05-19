@@ -37,7 +37,7 @@ class Progress extends \yii\db\ActiveRecord
         return [
             [['user_id', 'material_id', 'task_id'], 'required'],
             [['user_id', 'material_id', 'task_id', 'progress_value'], 'integer'],
-            [['material_id'], 'exist', 'skipOnError' => true, 'targetClass' => Material::className(), 'targetAttribute' => ['material_id' => 'id']],
+            [['material_id'], 'exist', 'skipOnError' => true, 'targetClass' => Materials::className(), 'targetAttribute' => ['material_id' => 'id']],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tests::className(), 'targetAttribute' => ['task_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -62,7 +62,7 @@ class Progress extends \yii\db\ActiveRecord
      */
     public function getMaterial()
     {
-        return $this->hasMany(Material::className(), ['id' => 'material_id']);
+        return $this->hasMany(Materials::className(), ['id' => 'material_id']);
     }
 
     /**
@@ -70,7 +70,7 @@ class Progress extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Task::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tests::className(), ['id' => 'task_id']);
     }
 
     /**

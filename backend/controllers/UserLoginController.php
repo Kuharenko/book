@@ -33,7 +33,7 @@ class UserLoginController extends ActiveController
             [
                 'class' => Cors::className(),
                 'cors' => [
-                    'Origin' => ["http://kuharenko.xyz", "*"],
+                    'Origin' => ["http://kuharenko.xyz"],
                     'Access-Control-Request-Method' => ['POST'],
                     'Access-Control-Request-Headers'=>['*'],
                     'Access-Control-Allow-Credentials' => true
@@ -64,11 +64,8 @@ class UserLoginController extends ActiveController
 
     public function actionRegister()
     {
-//        $user = $this->module->model("User", ["scenario" => "register"]);
         $user = new User(['scenario' => 'register']);
         $profile = new Profile();
-
-
 
         if (\Yii::$app->getRequest()->getRawBody()) {
             $data = json_decode(\Yii::$app->getRequest()->getRawBody(), true);
